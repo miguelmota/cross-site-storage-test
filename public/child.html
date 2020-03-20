@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes">
+  <title>Child</title>
+</head>
+<body>
+  <script>
+    window.addEventListener('message', event => {
+      if (event.data === 'test') {
+        try {
+          localStorage.setItem('foo', 'bar')
+          window.parent.postMessage('OK', event.origin)
+        } catch(err) {
+          window.parent.postMessage(err.message, event.origin)
+        }
+      }
+    }, false)
+  </script>
+</body>
+</html>

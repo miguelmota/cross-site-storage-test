@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes">
+  <title>Parent</title>
+  <style>
+    body {
+      padding: 1em;
+    }
+    #output {
+      display: block;
+      padding-right: 5em;
+    }
+    #output.error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="output"></div>
+  <a href="https://github.com/miguelmota/cross-site-storage-test" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+  <script>
+    const output = document.getElementById('output')
+
+    const iframe = document.createElement('iframe')
+    iframe.src = 'https://cross-site-storage-test.netlify.com/child.html'
+    iframe.style.position = 'fixed'
+    iframe.style.bottom = '0'
+    iframe.style.right = '0'
+    iframe.style.width = '0'
+    iframe.style.height = '0'
+    iframe.style.border = '0'
+    iframe.setAttribute('frameborder', '0')
+    iframe.setAttribute('scrolling', 'no')
+
+    window.addEventListener('message', async event => {
+      if (iframe.src.includes(event.origin)) {
+        const response = event.data
+        if (response !== 'OK') {
+          output.className = 'error'
+        }
+
+        output.textContent = response
+      }
+    })
+
+    iframe.onload = () => {
+      iframe.contentWindow.postMessage('test', iframe.src)
+    }
+
+    document.body.appendChild(iframe)
+  </script>
+</body>
+</html>
