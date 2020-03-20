@@ -12,6 +12,9 @@
       display: block;
       padding-right: 5em;
     }
+    #output.success {
+      color: green;
+    }
     #output.error {
       color: red;
     }
@@ -23,7 +26,7 @@
 
   <script>
     const output = document.getElementById('output')
-    const childUrl = `https://cross-site-storage-test.netlify.com`
+    const childUrl = `https://cross-site-storage-test.netlify.app`
 
     const iframe = document.createElement('iframe')
     iframe.src = `${childUrl}/child.html`
@@ -38,12 +41,8 @@
 
     window.addEventListener('message', async event => {
       if (event.origin === childUrl) {
-        const response = event.data
-        if (response !== 'OK') {
-          output.className = 'error'
-        }
-
-        output.textContent = response
+        output.className = event.data === 'OK' ? 'success' : 'error'
+        output.textContent = event.data
       }
     })
 
