@@ -23,9 +23,10 @@
 
   <script>
     const output = document.getElementById('output')
+    const childUrl = `https://cross-site-storage-test.netlify.com`
 
     const iframe = document.createElement('iframe')
-    iframe.src = 'https://cross-site-storage-test.netlify.com/child.html'
+    iframe.src = `${childUrl}/child.html`
     iframe.style.position = 'fixed'
     iframe.style.bottom = '0'
     iframe.style.right = '0'
@@ -36,7 +37,7 @@
     iframe.setAttribute('scrolling', 'no')
 
     window.addEventListener('message', async event => {
-      if (iframe.src.includes(event.origin)) {
+      if (event.origin === childUrl) {
         const response = event.data
         if (response !== 'OK') {
           output.className = 'error'

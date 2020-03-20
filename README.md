@@ -4,7 +4,7 @@
 
 ## Demo
 
-[https://cross-site-storage-test.netlify.com](https://cross-site-storage-test.netlify.com)
+[https://lab.miguelmota.com/cross-site-storage-test](https://lab.miguelmota.com/cross-site-storage-test)
 
 ## License
 
