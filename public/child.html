@@ -11,7 +11,14 @@
       if (event.data === 'test') {
         try {
           localStorage.setItem('foo', 'bar')
-          window.parent.postMessage('OK', event.origin)
+          window.parent.postMessage('localStorage: OK', event.origin)
+        } catch(err) {
+          window.parent.postMessage(err.message, event.origin)
+        }
+
+        try {
+          sessionStorage.setItem('foo', 'bar')
+          window.parent.postMessage('sessionStorage: OK', event.origin)
         } catch(err) {
           window.parent.postMessage(err.message, event.origin)
         }

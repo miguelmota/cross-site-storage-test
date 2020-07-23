@@ -41,7 +41,7 @@
 
     window.addEventListener('message', async event => {
       if (event.origin === childUrl) {
-        output.className = event.data === 'OK' ? 'success' : 'error'
+        output.className = event.data.indexOf('OK') > -1 ? 'success' : 'error'
         output.textContent = event.data
       }
     })
